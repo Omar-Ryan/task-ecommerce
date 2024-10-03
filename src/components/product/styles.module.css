@@ -1,0 +1,10 @@
+.mainBox {
+  width: 120px;
+  display: "flex";
+  justify-content: "space-between";
+  flex-direction: "column";
+}
+.imgBox {
+  height: 140px;
+  width: 100%;
+}

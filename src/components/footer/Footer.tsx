@@ -1,5 +1,11 @@
+import styles from "./styles.module.css";
+const { footerContainer } = styles;
 const Footer = () => {
-  return <footer>© 2024 Ryan. All rights reserved.</footer>;
+  return (
+    <footer className={footerContainer}>
+      © 2024 Ryan. All rights reserved.
+    </footer>
+  );
 };
 
 export default Footer;
