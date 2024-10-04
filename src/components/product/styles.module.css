@@ -1,10 +1,27 @@
-.mainBox {
+.ProductBox {
   width: 120px;
   display: "flex";
   justify-content: "space-between";
   flex-direction: "column";
+  padding: 2px;
+}
+.ProductBox a {
+  text-decoration: none;
+  color: #000;
 }
 .imgBox {
-  height: 140px;
+  width: fit-cotent;
+  display: block;
+}
+.imgBox img {
+  height: 180px;
   width: 100%;
+  background: #f2f2f2;
+}
+.ProductBox h2 {
+  font-size: 14px;
+  margin: 6px 0;
+}
+.ProductBox h3 {
+  font-size: 12px;
 }
