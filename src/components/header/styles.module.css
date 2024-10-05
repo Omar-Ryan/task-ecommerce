@@ -22,7 +22,7 @@
   font-size: 12px;
 }
 
-.pumpAnimate {
+.pumpAnimateC {
   animation: pumping 300ms ease-out;
 }
 
