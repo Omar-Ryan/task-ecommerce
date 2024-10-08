@@ -1,6 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { ProductProps } from "../types/shared";
-import { removeFromCart } from "../store/cart/cartSlice";
+import {
+  decQuantity,
+  incQuantity,
+  removeFromCart,
+} from "../store/cart/cartSlice";
 import { Button, Container, Row, Col } from "react-bootstrap";
 
 const ShoppingCart = () => {
@@ -11,7 +15,7 @@ const ShoppingCart = () => {
   const cartProducts = products.filter((product: ProductProps) =>
     cartItems[product.id] ? true : false
   );
-
+  console.log(cartProducts);
   const totalPrice = cartProducts.reduce(
     (total, product) => total + product.price * cartItems[product.id],
     0
@@ -29,7 +33,7 @@ const ShoppingCart = () => {
           {cartProducts.map((product: ProductProps) => (
             <Row
               key={product.id}
-              className="align-items-center justify-content-around mb-3"
+              className="align-items-center justify-content-between flex-lg-row mb-3 gap-3"
             >
               <Col xs={4}>
                 <img
@@ -40,14 +44,28 @@ const ShoppingCart = () => {
                 />
               </Col>
               <Col
-                xs={8}
-                className="d-sm-flex flex-column flex-md-row justify-content-center align-items-center "
+                xs={7}
+                className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-1 "
               >
-                <Col xs={4}>
+                <Col xs={2}>
                   <p>{product.price} EGP</p>
                 </Col>
-                <Col xs={4}>
+                <Col xs={2}>
                   <p>Quantity: {cartItems[product.id]}</p>
+                </Col>
+                <Col xs={4} className="d-flex gap-2  justify-content-center">
+                  <Button
+                    variant="primary"
+                    onClick={() => dispatch(incQuantity(product.id))}
+                  >
+                    +
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => dispatch(decQuantity(product.id))}
+                  >
+                    -
+                  </Button>
                 </Col>
                 <Col xs={4}>
                   <Button

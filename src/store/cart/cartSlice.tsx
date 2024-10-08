@@ -23,11 +23,20 @@ const cartSlice = createSlice({
         state.items[id] = 1;
       }
     },
+    incQuantity: (state, action) => {
+      state.items[action.payload]++;
+    },
+    decQuantity: (state, action) => {
+      if (state.items[action.payload] > 0) {
+        state.items[action.payload]--;
+      }
+    },
     removeFromCart: (state, action) => {
       const id = action.payload;
       delete state.items[id];
     },
   },
 });
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, incQuantity, decQuantity } =
+  cartSlice.actions;
 export default cartSlice.reducer;

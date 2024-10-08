@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, FloatingLabel, Form, Row } from "react-bootstrap";
 import { Spinner, Alert } from "react-bootstrap";
 import Product from "../components/product/Product";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -11,6 +11,19 @@ const Products = () => {
   const dispatch = useAppDispatch();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
+  const [isSortingEnabled, setIsSortingEnabled] = useState(false);
+  const [sortByPrice, setSortByPrice] = useState<"asc" | "desc">("asc");
+
+  const sortedProducts = isSortingEnabled
+    ? [...records].sort((a, b) => {
+        if (sortByPrice === "asc") {
+          return a.price - b.price;
+        } else {
+          return b.price - a.price;
+        }
+      })
+    : records;
+
   const handleCategoryChange = (category: string) => {
     setSelectedCategories((prevSelectedCategories) =>
       prevSelectedCategories.includes(category)
@@ -19,7 +32,7 @@ const Products = () => {
     );
   };
 
-  const filteredProducts = records.filter(
+  const filteredProducts = sortedProducts.filter(
     (item) =>
       selectedCategories.length === 0 ||
       selectedCategories.includes(item.category as string)
@@ -42,11 +55,35 @@ const Products = () => {
   return (
     <Container>
       <Row>
-        <Col xs={12} md={3} className="my-2">
+        <Col xs={12} md={3} className="my-3">
           <CategoryFilter
             selectedCategories={selectedCategories}
             onCategoryChange={handleCategoryChange}
           />
+          <Form.Check
+            type="checkbox"
+            label="Enable Sorting"
+            checked={isSortingEnabled}
+            onChange={() => setIsSortingEnabled((prev) => !prev)}
+            className="my-3"
+          />
+
+          {isSortingEnabled && (
+            <Col className="text-end" xs={6} md={12}>
+              <FloatingLabel controlId="floatingSelect" label="Sort by Price">
+                <Form.Select
+                  aria-label="Floating label select example"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSortByPrice(value === "1" ? "asc" : "desc");
+                  }}
+                >
+                  <option value="1">Ascending</option>
+                  <option value="2">Descending</option>
+                </Form.Select>
+              </FloatingLabel>
+            </Col>
+          )}
         </Col>
         <Col xs={12} md={9}>
           <Row>
