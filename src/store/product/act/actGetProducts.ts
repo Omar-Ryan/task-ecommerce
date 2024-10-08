@@ -7,7 +7,7 @@ export const actGetProducts = createAsyncThunk(
   async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = await axios.get<ProductProps>(
+      const response = await axios.get<ProductProps[]>(
         "https://fakestoreapi.com/products"
       );
       return response.data;

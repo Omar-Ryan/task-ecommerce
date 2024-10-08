@@ -15,7 +15,7 @@ const ShoppingCart = () => {
   const cartProducts = products.filter((product: ProductProps) =>
     cartItems[product.id] ? true : false
   );
-  console.log(cartProducts);
+  // console.log(cartProducts); //test
   const totalPrice = cartProducts.reduce(
     (total, product) => total + product.price * cartItems[product.id],
     0

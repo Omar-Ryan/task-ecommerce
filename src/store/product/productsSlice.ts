@@ -28,8 +28,11 @@ export const productsSlice = createSlice({
       state.error = null;
     });
     builder.addCase(actGetProducts.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.loading = "succeeded";
-      state.records = action.payload;
+      if (Array.isArray(action.payload)) {
+        state.records = action.payload;
+      }
     });
     builder.addCase(actGetProducts.rejected, (state, action) => {
       state.loading = "failed";
